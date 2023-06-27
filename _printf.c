@@ -1,19 +1,15 @@
 #include "main.h"
-
 /**
  * _printf - prints characters to stdout
  * @format: list of types of arguments passed to function
- *
  * Return: number of characters parsed
  */
-
 int _printf(const char *format, ...)
 {
 	int chars_printed = 0, i = 0;
 	va_list list;
 
 	va_start(list, format);
-
 	while (format && format[i])
 	{
 		if (format[i] == '%')
@@ -29,6 +25,9 @@ int _printf(const char *format, ...)
 				case 's':
 					chars_printed += _puts(va_arg(list, char*));
 					break;
+				case 'S':
+					chars_printed += print_custom_string(va_arg(list, char *));
+					break;
 				case 'd':
 				case 'i':
 					chars_printed += print_int(va_arg(list, int));
@@ -43,10 +42,13 @@ int _printf(const char *format, ...)
 					chars_printed += print_octal(va_arg(list, unsigned int));
 					break;
 				case 'x':
-					chars_printed += print_hex(va_arg(list,unsigned int), 0);
+					chars_printed += print_hex(va_arg(list, unsigned int), 0);
 					break;
 				case 'X':
 					chars_printed += print_hex(va_arg(list, unsigned int), 1);
+					break;
+				case 'p':
+					chars_printed += print_pointer(va_arg(list, void *));
 					break;
 				default:
 					_putchar('%');
