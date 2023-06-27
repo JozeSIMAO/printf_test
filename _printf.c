@@ -1,8 +1,9 @@
 #include "main.h"
 /**
  * _printf - prints characters to stdout
- * @format: list of types of arguments passed to function
- * Return: number of characters parsed
+ * @format: a character string
+ * Return: number of characters printed (excluding the null
+ * terminator)
  */
 int _printf(const char *format, ...)
 {
