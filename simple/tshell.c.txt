@@ -1,0 +1,66 @@
+#include "main.h"
+#define SIZE 60
+/**
+ * main - simple_shell
+ * Return: (0);
+ */
+
+extern char **environ;
+int main(void)
+{
+	char *args[SIZE];
+       	char *buff = NULL;
+	size_t n = 0;
+	ssize_t read;
+	int status = 1;
+
+	while (status == 1)
+	{
+		printf("$$$ ");
+		fflush(stdout);
+
+		if ((read = getline(&buff, &n, stdin)) == -1)
+		{
+			break;
+		}
+		buff[read - 1] = '\0';
+		
+		int i = 0;
+		char *token = strtok(buff, " \t\n");
+
+		while (token != NULL)
+		{
+			args[i] = token;
+			token = strtok(NULL, " \t\n");
+			i++;
+		}
+		args[i] = NULL;
+
+		if (i == 0)
+			continue;
+		pid_t child = fork();
+		if (strcmp(args[0], "exit") ==  0)
+		{
+			exit(0);
+		}
+		if (child == -1)
+		{
+			perror("ERROR!");
+		}
+		else if (child == 0)
+		{
+			if (execve(args[0], args, environ) == -1)
+			{
+				perror("excve");
+				exit(-1);
+			}
+		}
+		else
+		{
+			wait(NULL);
+		}
+	}
+	free(buff);
+
+	return (0);
+}
