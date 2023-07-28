@@ -1,10 +1,10 @@
 #include "main.h"
 /**
- * prompt - prints a promt to stdout
- * Return: 0
+ * prompt - prints a prompt to stdout
+ * Return: void
 */
-void prompt()
+void prompt(void)
 {
-    printf("$$ ");
-    fflush(stdout);
+	printf(">>> ");
+	fflush(stdout);
 }

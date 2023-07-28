@@ -11,9 +11,9 @@ extern char **environ;
 #include <unistd.h>
 #define SIZE 60
 
-void prompt();
+void prompt(void);
 int parse_args(char *buff, char **args);
 void exec_cmd(char **args);
-void run_shell();
+void run_shell(void);
 
 #endif
